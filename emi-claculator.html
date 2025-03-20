@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI CALCULATOR</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+   
+   <script>
+        "use strict"
+
+      function val(){
+          document.getElementById("txtAmount").value = document.getElementById("rangeAmount").value;
+          document.getElementById("txtYear").value = document.getElementById("rangeYear").value;
+          document.getElementById("txtInterest").value = document.getElementById("rangeInterest").value;
+      }
+      function calculateclick(){
+        var p = parseInt(document.getElementById("txtAmount").value);
+        var r = parseFloat(document.getElementById("txtInterest").value)/12/100;
+        var n = parseInt(document.getElementById("txtYear").value )*12
+
+        var emi = p * r * (Math.pow(1+r,n))/((Math.pow(1+r,n)-1));
+       
+        document.getElementById("result").innerHTML = "your installment amount is" + emi.toLocaleString('en-in',{style:"currency",currency:"INR"}) + "for next" + n + "months";
+
+      }
+
+    </script>
+</head>
+<body class="container-fluid bg-body-secondary">
+ <div class="bg-white p-5">
+    <div class="justify-content-center d-flex mb-5">
+        <div class="row fw-bold fs-2 "> EMI CALCULATOR</div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            amount you need &#8377; <input id="txtAmount" type="text">
+        </div>
+        <div class="col">
+            For <input type="text" id="txtYear" size="4">Years
+        </div>
+        <div class="col">
+           Interest rate <input type="text" id="txtInterest">%
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <input type="range" min="100000" max="1000000" value="100000" id="rangeAmount" onchange="val()" class="form-range">
+            <div>
+                <span> &#8377; 100000</span>
+                <span class="float-end"> &#8377; 1000000</span>
+            </div>
+        </div>
+        <div class="col">
+            <input type="range" min="1" max="5" value="1" id="rangeYear" onchange="val()" step="1"  class="form-range">
+             <div>
+                <span> 1</span>
+                <span class="float-end"> 5</span>
+            </div>
+        </div>
+        <div class="col">
+            <input type="range" min="10.45" max="18.45" value="10.45" id="rangeInterest" step="0.1" onchange="val()"  class="form-range">
+              <div>
+                <span>10.45%</span>
+                <span class="float-end"> 18.45%</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="row float-end mt-4">
+        <button class="btn btn-primary" style="width: 100px;" onclick="calculateclick()">Calculate</button>
+
+    </div>
+
+    <div class="d-flex justify-content-center fs-1 mt-5 fw-bold text-danger" >
+        <div id="result">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
